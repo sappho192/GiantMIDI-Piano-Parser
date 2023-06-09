@@ -9,10 +9,11 @@ namespace GiantMIDIParser
 	{
 		static void Main(string[] args)
 		{
+			//ReadParseSave(@"D:\DATASET\surname_checked_midis");
+
 			string giantMIDIPath = $"{args[0]}";
 			if (Directory.Exists(giantMIDIPath))
 			{
-				//ReadParseSave(@"D:\DATASET\surname_checked_midis");
 				ReadParseSave(giantMIDIPath);
 			}
 			else
@@ -47,9 +48,9 @@ namespace GiantMIDIParser
 			}
 
 			string resultRoot = "results";
-			string resultTrain = $"{resultRoot}\\train";
-			string resultValidation = $"{resultRoot}\\validation";
-			string resultTest = $"{resultRoot}\\test";
+			string resultTrain = Path.Combine(resultRoot, "train");
+			string resultValidation = Path.Combine(resultRoot, "validation");
+			string resultTest = Path.Combine(resultRoot, "test");
 			Directory.CreateDirectory(resultRoot);
 			Directory.CreateDirectory(resultTrain);
 			Directory.CreateDirectory(resultValidation);
@@ -109,8 +110,8 @@ namespace GiantMIDIParser
 
 				var filename = Path.GetFileNameWithoutExtension(midiFilePath);
 				//Console.WriteLine($"Saving {filename}.csv");
-				csv.Save($"{resultPath}\\{filename}");
-				midiFile.Write($"{resultPath}\\{filename}.midi");
+				csv.Save(Path.Combine(resultPath, filename));
+				midiFile.Write(Path.Combine(resultPath, $"{filename}.midi"));
 				Console.Write(".");
 			}
 		}
